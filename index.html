@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiramisoon - A Little Sweetness in Every Bite</title>
+<style>
+  :root{
+    --brown-dark:    #4a2f22;
+    --brown:         #6b4632;
+    --brown-mid:     #8a5a3f;
+    --tan:           #d9935a;
+    --tan-light:     #f2c199;
+    --cream:         #f5e8d3;
+    --cream-light:   #faf3e6;
+    --cream-card:    #f0ddb8;
+    --white:         #fffdf8;
+    --shadow:        rgba(74,47,34,0.25);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family:'Trebuchet MS', 'Segoe UI', sans-serif;
+    background:var(--cream);
+    color:var(--brown-dark);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:inherit; cursor:pointer; border:none; }
+
+  /* ===== HEADER ===== */
+  header{
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .logo{
+    font-size:1.7rem;
+    font-weight:800;
+    letter-spacing:1px;
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+    color:var(--cream-light);
+  }
+  .header-action-btn{
+    background:var(--cream-light);
+    color:var(--brown-dark);
+    padding:9px 20px;
+    border-radius:22px;
+    font-weight:700;
+    font-size:0.9rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .15s ease;
+    position:relative;
+  }
+  .header-action-btn:hover{ transform:translateY(-1px); }
+  .cart-badge{
+    position:absolute;
+    top:-8px; right:-8px;
+    background:var(--tan);
+    color:var(--white);
+    font-size:0.7rem;
+    font-weight:800;
+    width:20px; height:20px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    background:var(--brown);
+    display:flex;
+    justify-content:center;
+    gap:0;
+  }
+  .nav-btn{
+    background:transparent;
+    color:var(--cream-light);
+    padding:16px 48px;
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:0.5px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-btn.active{
+    background:var(--tan);
+    color:var(--brown-dark);
+  }
+  .nav-btn:not(.active):hover{
+    background:var(--brown-mid);
+  }
+
+  main{ min-height:60vh; }
+  section.page{ display:none; animation:fadeIn .35s ease; }
+  section.page.active{ display:block; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+  /* ===== HOMEPAGE ===== */
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:50px;
+    padding:60px 60px 50px;
+    max-width:1200px;
+    margin:0 auto;
+    flex-wrap:wrap;
+  }
+  .hero-visual{
+    flex:1 1 320px;
+    min-width:280px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  .tira-jar{
+    aspect-ratio:1/1;
+    border-radius:12px;
+    box-shadow:0 8px 18px var(--shadow);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--white);
+    font-weight:700;
+    font-size:0.85rem;
+    text-align:center;
+    padding:10px;
+  }
+  .jar-1{ background:linear-gradient(160deg,#7a4a2c,#4a2f1a); grid-column:1/2; grid-row:1/3; aspect-ratio:auto; height:100%; }
+  .jar-2{ background:linear-gradient(160deg,#8fae4f,#5a7530); }
+  .jar-3{ background:linear-gradient(160deg,#c98a3f,#8a5a20); }
+
+  .hero-text{
+    flex:1 1 420px;
+    min-width:300px;
+  }
+  .hero-text h1{
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+    font-size:3rem;
+    color:var(--brown-dark);
+    line-height:1.05;
+  }
+  .hero-text .tagline{
+    color:var(--tan);
+    font-weight:700;
+    letter-spacing:1px;
+    margin:10px 0 22px;
+    font-size:1rem;
+  }
+  .hero-text p.lead{
+    color:var(--brown);
+    margin-bottom:22px;
+    line-height:1.6;
+    max-width:440px;
+  }
+  .hero-box{
+    background:var(--cream-card);
+    border-radius:14px;
+    padding:20px 24px;
+    max-width:440px;
+    box-shadow:0 4px 10px var(--shadow);
+    color:var(--brown-dark);
+    line-height:1.6;
+  }
+
+  .cta-bar{
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:26px 60px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .cta-bar span{ font-size:1.1rem; font-weight:600; }
+  .order-now-btn{
+    background:var(--tan);
+    color:var(--white);
+    font-size:1.15rem;
+    font-weight:800;
+    padding:14px 36px;
+    border-radius:8px;
+    letter-spacing:1px;
+    transition:transform .15s ease, background .2s ease;
+  }
+  .order-now-btn:hover{ background:var(--tan-light); color:var(--brown-dark); transform:translateY(-2px); }
+
+  /* ===== PRODUK ===== */
+  .produk-wrap{ max-width:1100px; margin:0 auto; padding:50px 40px; }
+  .produk-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+  }
+  .produk-card{
+    background:var(--cream-card);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 6px 16px var(--shadow);
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+  }
+  .produk-img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+  }
+  .produk-card h3{
+    color:var(--brown-dark);
+    font-size:1.25rem;
+    margin:16px 0 4px;
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+  }
+  .produk-card p.desc{
+    color:var(--brown);
+    font-size:0.9rem;
+    margin-bottom:14px;
+    padding:0 10px;
+  }
+  .produk-card .price{
+    color:var(--brown-dark);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .tambah-btn{
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    padding:12px 0;
+    margin:0 18px 20px;
+    border-radius:8px;
+    font-weight:700;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:background .2s ease;
+    width:calc(100% - 36px);
+  }
+  .tambah-btn:hover{ background:var(--tan); }
+
+  /* KONTROL KUANTITAS (PLUS & MINUS) */
+  .qty-control{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:0 18px 20px;
+    background:var(--brown-dark);
+    border-radius:8px;
+    padding:4px;
+  }
+  .qty-btn{
+    background:var(--tan);
+    color:var(--white);
+    width:36px;
+    height:36px;
+    border-radius:6px;
+    font-size:1.2rem;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .2s ease;
+  }
+  .qty-btn:hover{ background:var(--tan-light); color:var(--brown-dark); }
+  .qty-val{
+    color:var(--cream-light);
+    font-weight:800;
+    font-size:1.1rem;
+    padding:0 12px;
+  }
+
+  /* ===== ABOUT US ===== */
+  .about-wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:50px 40px;
+    display:flex;
+    gap:50px;
+    flex-wrap:wrap;
+  }
+  .about-main{ flex:2 1 420px; }
+  .about-main h2{
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+    color:var(--brown-dark);
+    font-size:1.4rem;
+    margin-bottom:8px;
+    margin-top:28px;
+  }
+  .about-main h2:first-child{ margin-top:0; }
+  .about-main p{
+    color:var(--brown);
+    line-height:1.7;
+    max-width:520px;
+  }
+  .about-main ul{
+    color:var(--brown);
+    line-height:1.9;
+    margin-top:8px;
+    padding-left:22px;
+  }
+  .contact-card{
+    flex:1 1 260px;
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    border-radius:16px;
+    padding:26px;
+    height:fit-content;
+  }
+  .contact-card .contact-title{
+    background:var(--tan);
+    color:var(--white);
+    text-align:center;
+    padding:10px;
+    border-radius:20px;
+    font-weight:800;
+    margin-bottom:20px;
+  }
+  .contact-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    font-size:0.95rem;
+  }
+  .contact-item:last-child{ border-bottom:none; }
+  .contact-icon{
+    width:26px; text-align:center; font-size:1.1rem;
+  }
+  /* Tambahan styling link agar warna tetap menyatu */
+  .contact-item a {
+    color: var(--cream-light);
+    transition: opacity .15s ease;
+  }
+  .contact-item a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+
+  /* ===== CHECKOUT MODAL ===== */
+  .modal-overlay{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.45);
+    align-items:center; justify-content:center;
+    z-index:100;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    background:var(--white);
+    border-radius:14px;
+    padding:28px;
+    width:90%;
+    max-width:420px;
+    max-height:85vh;
+    overflow-y:auto;
+  }
+  .modal-box h3{ color:var(--brown-dark); margin-bottom:16px; }
+  .cart-row{
+    display:flex; justify-content:space-between;
+    padding:8px 0; border-bottom:1px solid #eee;
+    color:var(--brown-dark); font-size:0.95rem;
+  }
+  .cart-total{
+    display:flex; justify-content:space-between;
+    font-weight:800; margin-top:14px; font-size:1.1rem;
+    color:var(--brown-dark);
+  }
+  
+  /* Opsi Pengambilan */
+  .location-section {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 2px dashed var(--cream-card);
+  }
+  .location-section label {
+    display: block;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+  .location-select, .customer-name-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd0b8;
+    background: var(--cream-light);
+    color: var(--brown-dark);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    outline: none;
+  }
+  .location-select:focus, .customer-name-input:focus {
+    border-color: var(--tan);
+  }
+
+  .modal-action-btn{
+    margin-top:10px; width:100%;
+    background:var(--tan); color:var(--white);
+    padding:12px; border-radius:8px; font-weight:800;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background .2s ease;
+  }
+  .modal-action-btn:hover{ background: #5a8a4a; }
+  
+  .modal-close-btn{
+    margin-top:8px; width:100%;
+    background:transparent; color:var(--brown);
+    padding:8px; border-radius:8px; font-weight:700;
+    border: 1px solid #ddd;
+  }
+  .empty-cart{ color:var(--brown); text-align:center; padding:20px 0; }
+
+  /* ===== AUTH MODAL ===== */
+  .auth-tabs{
+    display:flex;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:20px;
+    border:1px solid var(--cream-card);
+  }
+  .auth-tab{
+    flex:1;
+    padding:10px;
+    background:var(--cream-light);
+    color:var(--brown);
+    font-weight:700;
+    transition:background .2s ease, color .2s ease;
+  }
+  .auth-tab.active{
+    background:var(--tan);
+    color:var(--white);
+  }
+  .auth-form{ display:none; flex-direction:column; gap:12px; }
+  .auth-form.active{ display:flex; }
+  .auth-form input{
+    padding:11px 14px;
+    border-radius:8px;
+    border:1px solid #ddd0b8;
+    font-size:0.95rem;
+    background:var(--cream-light);
+    color:var(--brown-dark);
+  }
+  .auth-form input:focus{ outline:2px solid var(--tan); }
+  .auth-submit-btn{
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    padding:12px;
+    border-radius:8px;
+    font-weight:700;
+    margin-top:4px;
+    transition:background .2s ease;
+  }
+  .auth-submit-btn:hover{ background:var(--tan); }
+  .auth-submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+  .auth-msg{
+    font-size:0.85rem;
+    min-height:18px;
+    font-weight:700;
+  }
+  .auth-msg.error{ color:#b3402a; }
+  .auth-msg.success{ color:#3b7a36; }
+
+  footer{
+    background:var(--brown-dark);
+    color:var(--cream-light);
+    text-align:center;
+    padding:18px;
+    font-size:0.85rem;
+    opacity:0.85;
+  }
+
+  @media (max-width:800px){
+    .produk-grid{ grid-template-columns:1fr; }
+    header{ padding:14px 20px; }
+    nav{ flex-wrap:wrap; }
+    .nav-btn{ padding:14px 20px; flex:1; }
+    .about-wrap, .hero{ flex-direction:column; }
+    .cta-bar{ flex-direction:column; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">TIRAMISOON</div>
+  <button class="header-action-btn" id="headerActionBtn"></button>
+</header>
+
+<nav>
+  <button class="nav-btn" data-page="about">About us</button>
+  <button class="nav-btn" data-page="home">Homepage</button>
+  <button class="nav-btn" data-page="produk">Produk</button>
+</nav>
+
+<main>
+
+  <!-- ================= HOMEPAGE ================= -->
+  <section class="page" id="page-home">
+    <div class="hero">
+      <div class="hero-visual">
+        <div class="tira-jar jar-1">Classic<br>Original</div>
+        <div class="tira-jar jar-2">Matcharisu</div>
+        <div class="tira-jar jar-3">Biscoff<br>Crunch</div>
+      </div>
+      <div class="hero-text">
+        <h1>TIRAMISOON</h1>
+        <div class="tagline">A LITTLE SWEETNESS IN EVERY BITE</div>
+        <p class="lead">Nikmati tiramisu yang lembut dan creamy dengan banyak varian rasa.</p>
+        <div class="hero-box">
+          Temukan rasa favoritmu, dari cita rasa terbaik original, matcha yang khas, sampai manis biscoff caramel !!
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <span>Ready to try your favorite ?!</span>
+      <button class="order-now-btn" id="orderNowBtn">ORDER NOW!!!!</button>
+    </div>
+  </section>
+
+  <!-- ================= PRODUK ================= -->
+  <section class="page" id="page-produk">
+    <div class="produk-wrap">
+      <div class="produk-grid" id="produkGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT US ================= -->
+  <section class="page" id="page-about">
+    <div class="about-wrap">
+      <div class="about-main">
+        <h2>Cerita Singkat Bisnis</h2>
+        <p>Tiramisoon hadir dari kecintaan terhadap tiramisu dan keinginan untuk menghadirkan dessert yang lembut, creamy, dan cocok dinikmati kapan saja.</p>
+
+        <h2>Konsep Produk</h2>
+        <p>Tiramisoon menyajikan tiramisu dengan rasa klasik yang dipadukan dengan berbagai varian kekinian. Dibuat dari bahan berkualitas dan tampilan yang menarik.</p>
+
+        <h2>Nilai Keunggulan</h2>
+        <ul>
+          <li>Premium</li>
+          <li>Creamy</li>
+          <li>Fresh</li>
+          <li>Banyak Varian</li>
+        </ul>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-title">CONTACT US</div>
+        <div class="contact-item">
+          <span class="contact-icon">💬</span> 
+          <a href="https://wa.me/6281216595852" target="_blank">0812-1659-5852</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📷</span> 
+          <a href="https://www.instagram.com/tiramis0onofficial?stkn=MXZ3bWZvOWY0NG93Yg%3D%3D&utm_source=qr" target="_blank">tiramis0onofficial</a>
+        </div>
+        <div class="contact-item"><span class="contact-icon">📍</span> Surabaya, Jawa Timur</div>
+        <div class="contact-item"><span class="contact-icon">🔗</span> Link Pemesanan</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 Tiramisoon. A little sweetness in every bite.</footer>
+
+<!-- ============ CHECKOUT MODAL ============ -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box">
+    <h3>Keranjang Kamu</h3>
+    <div id="cartItemsWrap"></div>
+    <div class="cart-total" id="cartTotalRow" style="display:none;">
+      <span>Total</span><span id="cartTotalValue">Rp 0</span>
+    </div>
+
+    <!-- Opsi Pengambilan & Detail Pembeli -->
+    <div class="location-section" id="checkoutOptions" style="display:none;">
+      <label for="custNameInput">Nama Pemesan:</label>
+      <input type="text" id="custNameInput" class="customer-name-input" placeholder="Masukkan nama kamu...">
+
+      <label for="pickupLocation">Tempat Pengambilan:</label>
+      <select id="pickupLocation" class="location-select">
+        <option value="FEB Unesa">FEB Unesa</option>
+        <option value="Depan Gedung Serba Guna Unesa">Depan Gedung Serba Guna Unesa</option>
+        <option value="Danau Unesa">Danau Unesa</option>
+      </select>
+
+      <label for="pickupTime">Waktu Pengambilan:</label>
+      <select id="pickupTime" class="location-select">
+        <option value="11:00 - 12:00">Jam 11:00 - 12:00</option>
+        <option value="14:30 - 15:30">Jam 14:30 - 15:30</option>
+      </select>
+
+      <button class="modal-action-btn" id="sendWaBtn">💬 Lanjutkan Pesanan via WhatsApp</button>
+    </div>
+
+    <button class="modal-close-btn" id="closeModalBtn">Tutup</button>
+  </div>
+</div>
+
+<!-- ============ LOGIN / SIGNUP MODAL ============ -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-box">
+    <h3 id="authModalTitle">Masuk ke Tiramisoon</h3>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login" id="tabLoginBtn">Login</button>
+      <button class="auth-tab" data-tab="signup" id="tabSignupBtn">Daftar</button>
+    </div>
+
+    <!-- FORM LOGIN -->
+    <form class="auth-form active" id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <div class="auth-msg error" id="loginError"></div>
+      <button type="submit" class="auth-submit-btn" id="loginSubmitBtn">Login</button>
+    </form>
+
+    <!-- FORM SIGNUP -->
+    <form class="auth-form" id="signupForm">
+      <input type="text" id="signupName" placeholder="Nama lengkap" required>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password (min. 6 karakter)" required minlength="6">
+      <div class="auth-msg" id="signupMsg"></div>
+      <button type="submit" class="auth-submit-btn" id="signupSubmitBtn">Daftar</button>
+    </form>
+
+    <button class="modal-close-btn" id="closeAuthModalBtn">Tutup</button>
+  </div>
+</div>
+
+<script>
+  // ---------- USER STATE ----------
+  let currentUser = JSON.parse(localStorage.getItem('tiramisoon_active_user')) || null;
+
+  // ---------- TAB SWITCH (Login <-> Daftar) ----------
+  function switchTab(tabKey) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+    
+    if (tabKey === 'login') {
+      document.getElementById('tabLoginBtn').classList.add('active');
+      document.getElementById('loginForm').classList.add('active');
+    } else {
+      document.getElementById('tabSignupBtn').classList.add('active');
+      document.getElementById('signupForm').classList.add('active');
+    }
+  }
+
+  document.querySelectorAll('.auth-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+  });
+
+  // ---------- Buka / tutup modal auth ----------
+  const authModal = document.getElementById('authModal');
+  window.openAuthModal = () => {
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('signupMsg').textContent = '';
+    authModal.classList.add('open');
+  };
+  document.getElementById('closeAuthModalBtn').addEventListener('click', () => authModal.classList.remove('open'));
+  authModal.addEventListener('click', e => { if(e.target === authModal) authModal.classList.remove('open'); });
+
+  // ---------- PROSES DAFTAR (SIGNUP) ----------
+  document.getElementById('signupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const msgEl = document.getElementById('signupMsg');
+    const btn = document.getElementById('signupSubmitBtn');
+
+    msgEl.className = 'auth-msg';
+    msgEl.textContent = '';
+
+    let users = JSON.parse(localStorage.getItem('tiramisoon_users')) || [];
+
+    const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+    if (existing) {
+      msgEl.className = 'auth-msg error';
+      msgEl.textContent = 'Email sudah terdaftar, silakan login.';
+      return;
+    }
+
+    users.push({ name, email, password });
+    localStorage.setItem('tiramisoon_users', JSON.stringify(users));
+
+    msgEl.className = 'auth-msg success';
+    msgEl.textContent = 'Daftar berhasil! Mengalihkan ke halaman login...';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('signupForm').reset();
+      btn.disabled = false;
+      msgEl.textContent = '';
+      
+      switchTab('login');
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').focus();
+    }, 1500);
+  });
+
+  // ---------- PROSES LOGIN ----------
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const errorEl = document.getElementById('loginError');
+
+    let users = JSON.parse(localStorage.getItem('tiramisoon_users')) || [];
+    const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+
+    if (matchedUser) {
+      currentUser = matchedUser;
+      localStorage.setItem('tiramisoon_active_user', JSON.stringify(currentUser));
+      
+      authModal.classList.remove('open');
+      document.getElementById('loginForm').reset();
+      errorEl.textContent = '';
+      
+      renderAuthButton();
+    } else {
+      errorEl.textContent = 'Email atau password salah.';
+    }
+  });
+
+  // Logout
+  window.logoutUser = () => {
+    currentUser = null;
+    localStorage.removeItem('tiramisoon_active_user');
+    renderAuthButton();
+  };
+
+  // ---------- DATA PRODUK ----------
+  const products = [
+    { id:1, name:'Classic Original', desc:'Tiramisu klasik dengan krim gurih lembut', price:20000, img:'image_0680eb.jpg' },
+    { id:2, name:'Matcharisu',       desc:'Rasa khas matcha jepang asli', price:22000, img:'image_06dabf.jpg' },
+    { id:3, name:'Biscoff Crunch',   desc:'Sensasi manis biskuit biscoff renyah', price:23000, img:'image_06d761.jpg' },
+  ];
+
+  let cart = {};
+
+  const grid = document.getElementById('produkGrid');
+
+  function updateQuantity(id, change) {
+    const currentQty = cart[id] || 0;
+    const newQty = currentQty + change;
+    
+    if (newQty <= 0) {
+      delete cart[id];
+    } else {
+      cart[id] = newQty;
+    }
+    
+    renderProducts();
+    updateCartBadge();
+  }
+
+  function renderProducts(){
+    grid.innerHTML = products.map(p => {
+      const qty = cart[p.id] || 0;
+      
+      let actionControl = '';
+      if (qty === 0) {
+        actionControl = `<button class="tambah-btn" onclick="updateQuantity(${p.id}, 1)">🛒 Tambah</button>`;
+      } else {
+        actionControl = `
+          <div class="qty-control">
+            <button class="qty-btn" onclick="updateQuantity(${p.id}, -1)">−</button>
+            <span class="qty-val">${qty}</span>
+            <button class="qty-btn" onclick="updateQuantity(${p.id}, 1)">+</button>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="produk-card">
+          <img src="${p.img}" alt="${p.name}" class="produk-img">
+          <h3>${p.name}</h3>
+          <p class="desc">${p.desc}</p>
+          <div class="price">Rp ${p.price.toLocaleString('id-ID')}</div>
+          ${actionControl}
+        </div>
+      `;
+    }).join('');
+  }
+  renderProducts();
+
+  // ---------- NAV / PAGE SWITCH ----------
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const pages = {
+    home:   document.getElementById('page-home'),
+    produk: document.getElementById('page-produk'),
+    about:  document.getElementById('page-about'),
+  };
+  const headerActionBtn = document.getElementById('headerActionBtn');
+
+  function goToPage(pageKey){
+    Object.values(pages).forEach(p => p.classList.remove('active'));
+    pages[pageKey].classList.add('active');
+
+    navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === pageKey));
+
+    if(pageKey === 'home'){
+      renderAuthButton();
+    } else if(pageKey === 'produk'){
+      updateCartBadge();
+      headerActionBtn.onclick = openCheckout;
+    } else if(pageKey === 'about'){
+      headerActionBtn.innerHTML = 'ABOUT US & CONTACT';
+      headerActionBtn.onclick = () => document.querySelector('.contact-card').scrollIntoView({behavior:'smooth'});
+    }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  navBtns.forEach(btn=>{
+    btn.addEventListener('click', () => goToPage(btn.dataset.page));
+  });
+
+  document.getElementById('orderNowBtn').addEventListener('click', () => goToPage('produk'));
+
+  // ---------- TOMBOL LOGIN / STATUS USER ----------
+  function renderAuthButton(){
+    if(currentUser){
+      const nama = currentUser.name || currentUser.email.split('@')[0];
+      headerActionBtn.innerHTML = `👤 Halo, ${nama}`;
+      headerActionBtn.onclick = () => {
+        if(confirm('Apakah kamu yakin ingin logout?')) window.logoutUser();
+      };
+    } else {
+      headerActionBtn.innerHTML = '🔑 login / signup';
+      headerActionBtn.onclick = () => window.openAuthModal();
+    }
+  }
+
+  // ---------- CART BADGE & CHECKOUT ----------
+  function cartCount(){
+    return Object.values(cart).reduce((a,b)=>a+b,0);
+  }
+  function updateCartBadge(){
+    if (document.getElementById('page-produk').classList.contains('active')) {
+      const count = cartCount();
+      headerActionBtn.innerHTML = `🛒 Check out ${count > 0 ? `<span class="cart-badge">${count}</span>` : ''}`;
+    }
+  }
+
+  const modal = document.getElementById('checkoutModal');
+  const cartItemsWrap = document.getElementById('cartItemsWrap');
+  const cartTotalRow = document.getElementById('cartTotalRow');
+  const cartTotalValue = document.getElementById('cartTotalValue');
+  const checkoutOptions = document.getElementById('checkoutOptions');
+  const custNameInput = document.getElementById('custNameInput');
+
+  function openCheckout(){
+    const ids = Object.keys(cart).filter(id => cart[id] > 0);
+    if(ids.length === 0){
+      cartItemsWrap.innerHTML = '<div class="empty-cart">Keranjang masih kosong. Yuk tambah produk favoritmu!</div>';
+      cartTotalRow.style.display = 'none';
+      checkoutOptions.style.display = 'none';
+    } else {
+      let total = 0;
+      cartItemsWrap.innerHTML = ids.map(id => {
+        const p = products.find(pr => pr.id == id);
+        const subtotal = p.price * cart[id];
+        total += subtotal;
+        return `<div class="cart-row"><span>${p.name} x${cart[id]}</span><span>Rp ${subtotal.toLocaleString('id-ID')}</span></div>`;
+      }).join('');
+      
+      cartTotalRow.style.display = 'flex';
+      cartTotalValue.textContent = 'Rp ' + total.toLocaleString('id-ID');
+      checkoutOptions.style.display = 'block';
+
+      // Otomatis isi nama jika user sudah login
+      if (currentUser && currentUser.name) {
+        custNameInput.value = currentUser.name;
+      }
+    }
+    modal.classList.add('open');
+  }
+
+  // Buka WhatsApp dengan format ter-update
+  document.getElementById('sendWaBtn').addEventListener('click', () => {
+    const name = custNameInput.value.trim();
+    if(!name) {
+      alert('Silakan masukkan nama kamu terlebih dahulu.');
+      custNameInput.focus();
+      return;
+    }
+
+    const location = document.getElementById('pickupLocation').value;
+    const time = document.getElementById('pickupTime').value;
+    
+    // Susun string daftar produk
+    const productList = Object.keys(cart)
+      .filter(id => cart[id] > 0)
+      .map(id => {
+        const p = products.find(pr => pr.id == id);
+        return `${p.name} (${cart[id]}x)`;
+      }).join(', ');
+
+    // Format Pesan: Nama | Tempat | Waktu | Produk
+    const message = `${name} | ${location} | Jam ${time} | ${productList}`;
+    
+    const phoneNumber = "6281216595852";
+    const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    window.open(waUrl, '_blank');
+  });
+
+  document.getElementById('closeModalBtn').addEventListener('click', () => modal.classList.remove('open'));
+  modal.addEventListener('click', e => { if(e.target === modal) modal.classList.remove('open'); });
+
+  // Init awal
+  goToPage('home');
+</script>
+
+</body>
+</html>
