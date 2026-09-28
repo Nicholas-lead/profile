@@ -129,7 +129,13 @@
     text-align:center;
     padding:10px;
   }
-  .jar-1{ background:linear-gradient(160deg,#7a4a2c,#4a2f1a); grid-column:1/2; grid-row:1/3; aspect-ratio:auto; height:100%; }
+  .jar-1{ 
+    grid-column:1/2; 
+    grid-row:1/3; 
+    width:100%;
+    height:100%; 
+    object-fit:cover;
+  }
   .jar-2{ background:linear-gradient(160deg,#8fae4f,#5a7530); }
   .jar-3{ background:linear-gradient(160deg,#c98a3f,#8a5a20); }
 
@@ -329,7 +335,6 @@
   .contact-icon{
     width:26px; text-align:center; font-size:1.1rem;
   }
-  /* Tambahan styling link agar warna tetap menyatu */
   .contact-item a {
     color: var(--cream-light);
     transition: opacity .15s ease;
@@ -504,7 +509,7 @@
   <section class="page" id="page-home">
     <div class="hero">
       <div class="hero-visual">
-        <div class="tira-jar jar-1">Classic<br>Original</div>
+        <img src="hpc.png" alt="Classic Original" class="tira-jar jar-1">
         <div class="tira-jar jar-2">Matcharisu</div>
         <div class="tira-jar jar-3">Biscoff<br>Crunch</div>
       </div>
