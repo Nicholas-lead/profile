@@ -434,7 +434,7 @@
   .produk-card .stock-info {
     font-size: 0.85rem;
     font-weight: 700;
-    color: var(--tan); /* Diganti ke warna cokelat karamel */
+    color: var(--tan);
     margin-bottom: 6px;
   }
   .produk-card .price{
@@ -634,6 +634,49 @@
   .contact-icon{ width:26px; text-align:center; font-size:1.1rem; }
   .contact-item a { color: var(--cream-light); }
 
+  /* ===== TEAM SECTION STYLES ===== */
+  .team-section {
+    width: 100%;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px dashed #ddd0b8;
+  }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .team-card {
+    background: var(--cream-card);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: transform 0.2s ease;
+  }
+  .team-card:hover {
+    transform: translateY(-4px);
+  }
+  .team-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .team-card h3 {
+    font-size: 1.1rem;
+    color: var(--brown-dark);
+    margin-bottom: 4px;
+    font-family: 'Comic Sans MS', sans-serif;
+  }
+  .team-card p {
+    font-size: 0.85rem;
+    color: var(--brown);
+    font-weight: 700;
+  }
+
   /* ===== MODAL STYLES ===== */
   .modal-overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:100; }
   .modal-overlay.open{ display:flex; }
@@ -668,6 +711,10 @@
     .nav-btn{ padding:12px 16px; flex:1 1 auto; text-align:center; }
     .about-wrap, .hero{ flex-direction:column; }
     .cta-bar{ flex-direction:column; text-align:center; }
+    .team-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:500px){
+    .team-grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -880,6 +927,35 @@
         <div class="contact-item"><span class="contact-icon">📍</span> Surabaya, Jawa Timur</div>
         <div class="contact-item"><span class="contact-icon">🔗</span> Link Pemesanan</div>
       </div>
+
+      <!-- BAGIAN OUR TEAM -->
+      <div class="team-section">
+        <h2 class="section-title">Tim Kami</h2>
+        <p class="section-subtitle">Orang-orang di balik kelezatan Tiramisoon</p>
+        <div class="team-grid">
+          <div class="team-card">
+            <img src="saif.jpg" alt="M Saif Ali" class="team-img">
+            <h3>M Saif Ali</h3>
+            <p>Ketua Direksi</p>
+          </div>
+          <div class="team-card">
+            <img src="niko.jpg" alt="Nikolas Farantino" class="team-img">
+            <h3>Nikolas Farantino</h3>
+            <p>Designer Website</p>
+          </div>
+          <div class="team-card">
+            <img src="fauzia.jpg" alt="Fauzia Zynta" class="team-img">
+            <h3>Fauzia Zynta</h3>
+            <p>Konten Writer</p>
+          </div>
+          <div class="team-card">
+            <img src="intan.jpg" alt="Ade Intan Rizana" class="team-img">
+            <h3>Ade Intan Rizana</h3>
+            <p>Marketing Analyst</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
