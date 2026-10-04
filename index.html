@@ -428,8 +428,14 @@
   .produk-card p.desc{
     color:var(--brown);
     font-size:0.9rem;
-    margin-bottom:14px;
+    margin-bottom:8px;
     padding:0 10px;
+  }
+  .produk-card .stock-info {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--tan); /* Diganti ke warna cokelat karamel */
+    margin-bottom: 6px;
   }
   .produk-card .price{
     color:var(--brown-dark);
@@ -515,6 +521,28 @@
     padding: 14px 20px;
     border-radius: 10px;
     margin-bottom: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .admin-product-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .stock-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .stock-input {
+    width: 60px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-weight: 700;
+    text-align: center;
   }
   .toggle-btn {
     padding: 8px 16px;
@@ -548,6 +576,23 @@
   .orders-table th {
     background: var(--brown-dark);
     color: var(--cream-light);
+  }
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+  }
+  .status-badge.on-progress {
+    background: #f59e0b;
+    color: white;
+  }
+  .status-badge.completed {
+    background: #16a34a;
+    color: white;
   }
 
   /* ===== BLOG & FAQ & ABOUT US ===== */
@@ -678,12 +723,12 @@
   <!-- ================= ADMIN PANEL ================= -->
   <section class="page" id="page-admin">
     <div class="admin-wrap">
-      <h2 class="section-title">⚙️ Admin Panel Tiramisoon</h2>
-      <p class="section-subtitle">Kelola ketersediaan produk dan lihat pesanan masuk</p>
+      <h2 class="section-title">⚙ Admin Panel Tiramisoon</h2>
+      <p class="section-subtitle">Kelola ketersediaan produk, stok, dan status pesanan masuk</p>
 
       <!-- Status Produk -->
       <div class="admin-section">
-        <h3>📦 Kelola Status Produk</h3>
+        <h3>📦 Kelola Status & Stok Produk</h3>
         <div id="adminProductControls"></div>
       </div>
 
@@ -699,11 +744,12 @@
                 <th>Lokasi Pickup</th>
                 <th>Jam</th>
                 <th>Pesanan</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody id="ordersTableBody">
               <tr>
-                <td colspan="5" style="text-align:center;">Belum ada pesanan masuk.</td>
+                <td colspan="6" style="text-align:center;">Belum ada pesanan masuk.</td>
               </tr>
             </tbody>
           </table>
@@ -911,11 +957,11 @@
   let currentUser = JSON.parse(localStorage.getItem('tiramisoon_active_user')) || null;
   let isAdmin = localStorage.getItem('tiramisoon_is_admin') === 'true';
 
-  // ---------- DATA PRODUK (dengan status ketersediaan) ----------
+  // ---------- DATA PRODUK (dengan status ketersediaan & stok) ----------
   const defaultProducts = [
-    { id:1, name:'Classic Original', desc:'Tiramisu klasik dengan krim gurih lembut', price:20000, img:'image_0680eb.jpg', available: true },
-    { id:2, name:'Matcharisu',       desc:'Rasa khas matcha jepang asli', price:22000, img:'image_06dabf.jpg', available: true },
-    { id:3, name:'Biscoff Crunch',   desc:'Sensasi manis biskuit biscoff renyah', price:23000, img:'image_06d761.jpg', available: true },
+    { id:1, name:'Classic Original', desc:'Tiramisu klasik dengan krim gurih lembut', price:20000, img:'image_0680eb.jpg', available: true, stock: 10 },
+    { id:2, name:'Matcharisu',       desc:'Rasa khas matcha jepang asli', price:22000, img:'image_06dabf.jpg', available: true, stock: 10 },
+    { id:3, name:'Biscoff Crunch',   desc:'Sensasi manis biskuit biscoff renyah', price:23000, img:'image_06d761.jpg', available: true, stock: 10 },
   ];
 
   let products = JSON.parse(localStorage.getItem('tiramisoon_products')) || defaultProducts;
@@ -1061,8 +1107,14 @@
   const grid = document.getElementById('produkGrid');
 
   function updateQuantity(id, change) {
+    const product = products.find(p => p.id === id);
     const currentQty = cart[id] || 0;
     const newQty = currentQty + change;
+
+    if (change > 0 && newQty > product.stock) {
+      alert(`Stok ${product.name} terbatas! Sisa stok: ${product.stock}`);
+      return;
+    }
     
     if (newQty <= 0) {
       delete cart[id];
@@ -1080,8 +1132,8 @@
       
       let actionControl = '';
       
-      if (!p.available) {
-        actionControl = `<div class="unavailable-badge">produk tidak tersedia</div>`;
+      if (!p.available || p.stock <= 0) {
+        actionControl = `<div class="unavailable-badge">${p.stock <= 0 ? 'Stok Habis' : 'produk tidak tersedia'}</div>`;
       } else if (qty === 0) {
         actionControl = `<button class="tambah-btn" onclick="updateQuantity(${p.id}, 1)">🛒 Tambah</button>`;
       } else {
@@ -1099,6 +1151,7 @@
           <img src="${p.img}" alt="${p.name}" class="produk-img">
           <h3>${p.name}</h3>
           <p class="desc">${p.desc}</p>
+          <div class="stock-info">Stok Tersedia: ${p.stock ?? 0}</div>
           <div class="price">Rp ${p.price.toLocaleString('id-ID')}</div>
           ${actionControl}
         </div>
@@ -1122,16 +1175,40 @@
     }
   }
 
+  function updateProductStock(id, newStock) {
+    const product = products.find(p => p.id === id);
+    if (product) {
+      product.stock = parseInt(newStock) || 0;
+      saveProducts();
+      renderProducts();
+    }
+  }
+
   function renderAdminProducts() {
     const container = document.getElementById('adminProductControls');
     container.innerHTML = products.map(p => `
       <div class="admin-product-item">
         <span><strong>${p.name}</strong></span>
-        <button class="toggle-btn ${p.available ? 'active' : 'inactive'}" onclick="toggleProductStatus(${p.id})">
-          ${p.available ? '✅ Aktif' : '❌ Nonaktif'}
-        </button>
+        <div class="admin-product-actions">
+          <div class="stock-input-wrap">
+            <label>Stok:</label>
+            <input type="number" min="0" value="${p.stock ?? 0}" class="stock-input" onchange="updateProductStock(${p.id}, this.value)">
+          </div>
+          <button class="toggle-btn ${p.available ? 'active' : 'inactive'}" onclick="toggleProductStatus(${p.id})">
+            ${p.available ? '✅ Aktif' : '❌ Nonaktif'}
+          </button>
+        </div>
       </div>
     `).join('');
+  }
+
+  function toggleOrderStatus(index) {
+    let orders = JSON.parse(localStorage.getItem('tiramisoon_orders')) || [];
+    if (orders[index]) {
+      orders[index].status = orders[index].status === 'Selesai' ? 'On Progress' : 'Selesai';
+      localStorage.setItem('tiramisoon_orders', JSON.stringify(orders));
+      renderAdminOrders();
+    }
   }
 
   function renderAdminOrders() {
@@ -1139,19 +1216,27 @@
     const orders = JSON.parse(localStorage.getItem('tiramisoon_orders')) || [];
     
     if (orders.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada pesanan masuk.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Belum ada pesanan masuk.</td></tr>';
       return;
     }
 
-    tbody.innerHTML = orders.map(o => `
-      <tr>
-        <td>${o.date}</td>
-        <td><strong>${o.name}</strong></td>
-        <td>${o.location}</td>
-        <td>${o.time}</td>
-        <td>${o.products}</td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = orders.map((o, idx) => {
+      const isDone = o.status === 'Selesai';
+      return `
+        <tr>
+          <td>${o.date}</td>
+          <td><strong>${o.name}</strong></td>
+          <td>${o.location}</td>
+          <td>${o.time}</td>
+          <td>${o.products}</td>
+          <td>
+            <button class="status-badge ${isDone ? 'completed' : 'on-progress'}" onclick="toggleOrderStatus(${idx})">
+              ${o.status || 'On Progress'}
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
   }
 
   // ---------- NAV / PAGE SWITCH ----------
@@ -1179,6 +1264,7 @@
     } else if(pageKey === 'home' || pageKey === 'blog' || pageKey === 'faq'){
       renderAuthButton();
     } else if(pageKey === 'produk'){
+      renderProducts();
       updateCartBadge();
       headerActionBtn.onclick = openCheckout;
     } else if(pageKey === 'about'){
@@ -1278,6 +1364,15 @@
     const location = document.getElementById('pickupLocation').value;
     const time = document.getElementById('pickupTime').value;
     
+    // Potong stok produk sesuai jumlah yang dibeli
+    Object.keys(cart).forEach(id => {
+      const p = products.find(pr => pr.id == id);
+      if (p) {
+        p.stock = Math.max(0, p.stock - cart[id]);
+      }
+    });
+    saveProducts();
+
     const productList = Object.keys(cart)
       .filter(id => cart[id] > 0)
       .map(id => {
@@ -1285,18 +1380,24 @@
         return `${p.name} (${cart[id]}x)`;
       }).join(', ');
 
-    // Simpan ke LocalStorage agar Admin dapat melihat pesanan
+    // Simpan ke LocalStorage agar Admin dapat melihat pesanan (Default Status: On Progress)
     const newOrder = {
       date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }),
       name,
       location,
       time,
-      products: productList
+      products: productList,
+      status: 'On Progress'
     };
 
     let orders = JSON.parse(localStorage.getItem('tiramisoon_orders')) || [];
     orders.unshift(newOrder);
     localStorage.setItem('tiramisoon_orders', JSON.stringify(orders));
+
+    // Reset keranjang belanja
+    cart = {};
+    updateCartBadge();
+    modal.classList.remove('open');
 
     const message = `${name} | ${location} | Jam ${time} | ${productList}`;
     const phoneNumber = "6281216595852";
