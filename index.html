@@ -1,5 +1,344 @@
 <!DOCTYPE html>
 <html lang="id">
+<style>
+  /* ================================
+     PROFESSIONAL CHECKOUT UI
+     ================================ */
+
+  .checkout-modal {
+    backdrop-filter: blur(8px);
+    background: rgba(15, 23, 42, 0.65);
+  }
+
+  .checkout-box {
+    position: relative;
+    width: min(520px, 92%);
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+    animation: checkoutAppear .25s ease;
+    overflow: hidden;
+  }
+
+  @keyframes checkoutAppear {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .checkout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+
+  .checkout-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .checkout-title-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111827;
+    color: white;
+    font-size: 21px;
+  }
+
+  .checkout-title h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #111827;
+  }
+
+  .checkout-title p {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .close-checkout {
+    border: none;
+    background: #f3f4f6;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: .2s;
+  }
+
+  .close-checkout:hover {
+    background: #e5e7eb;
+    transform: rotate(90deg);
+  }
+
+  .cart-items {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 5px 15px;
+  }
+
+  .cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 0;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  .cart-row:last-child {
+    border-bottom: none;
+  }
+
+  .cart-row span:last-child {
+    font-weight: 700;
+    color: #111827;
+    white-space: nowrap;
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 3px;
+    font-size: 15px;
+  }
+
+  .cart-total strong {
+    font-size: 21px;
+    color: #111827;
+  }
+
+  .checkout-form {
+    margin-top: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .checkout-input,
+  .checkout-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    background: #fff;
+    transition: .2s;
+  }
+
+  .checkout-input:focus,
+  .checkout-select:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, .08);
+  }
+
+  .checkout-field {
+    margin-bottom: 14px;
+  }
+
+  .pickup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .send-wa-btn {
+    width: 100%;
+    border: none;
+    border-radius: 13px;
+    padding: 14px;
+    background: #111827;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+    margin-top: 5px;
+  }
+
+  .send-wa-btn:hover {
+    background: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+  }
+
+  .checkout-note {
+    text-align: center;
+    font-size: 11px;
+    color: #9ca3af;
+    margin: 12px 0 0;
+  }
+
+  /* ================================
+     MASKOT KUCING TUXEDO
+     ================================ */
+
+  .tuxedo-mascot {
+    position: absolute;
+    right: -8px;
+    bottom: -8px;
+    width: 105px;
+    height: 105px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .cat-head {
+    position: absolute;
+    width: 72px;
+    height: 65px;
+    right: 12px;
+    bottom: 14px;
+    background: #171717;
+    border-radius: 48% 48% 45% 45%;
+  }
+
+  .cat-ear-left,
+  .cat-ear-right {
+    position: absolute;
+    width: 27px;
+    height: 30px;
+    top: -12px;
+    background: #171717;
+  }
+
+  .cat-ear-left {
+    left: 3px;
+    transform: rotate(-28deg);
+    border-radius: 5px 18px 0 10px;
+  }
+
+  .cat-ear-right {
+    right: 3px;
+    transform: rotate(28deg);
+    border-radius: 18px 5px 10px 0;
+  }
+
+  .cat-face {
+    position: absolute;
+    left: 18px;
+    top: 11px;
+    width: 37px;
+    height: 48px;
+    background: white;
+    border-radius: 45%;
+  }
+
+  .cat-eye {
+    position: absolute;
+    top: 22px;
+    width: 7px;
+    height: 7px;
+    background: #111827;
+    border-radius: 50%;
+  }
+
+  .cat-eye.left {
+    left: 19px;
+  }
+
+  .cat-eye.right {
+    right: 19px;
+  }
+
+  .cat-nose {
+    position: absolute;
+    left: 32px;
+    top: 31px;
+    width: 8px;
+    height: 6px;
+    background: #111827;
+    border-radius: 50%;
+  }
+
+  .cat-body {
+    position: absolute;
+    right: 4px;
+    bottom: -18px;
+    width: 80px;
+    height: 54px;
+    background: #171717;
+    border-radius: 50px 50px 15px 15px;
+  }
+
+  .cat-shirt {
+    position: absolute;
+    left: 27px;
+    top: 5px;
+    width: 25px;
+    height: 45px;
+    background: white;
+    clip-path: polygon(50% 0, 100% 25%, 78% 100%, 22% 100%, 0 25%);
+  }
+
+  .cat-bowtie {
+    position: absolute;
+    left: 33px;
+    top: 8px;
+    width: 14px;
+    height: 8px;
+    background: #111827;
+    clip-path: polygon(0 0, 45% 20%, 50% 0, 55% 20%, 100% 0, 85% 100%, 50% 70%, 15% 100%);
+  }
+
+  /* Badge checkout */
+
+  .cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 5px;
+    margin-left: 4px;
+    border-radius: 20px;
+    background: #ef4444;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 480px) {
+    .checkout-box {
+      padding: 21px;
+      border-radius: 20px;
+    }
+
+    .pickup-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tuxedo-mascot {
+      transform: scale(.8);
+      transform-origin: bottom right;
+    }
+  }
+</style>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,11 +417,12 @@
     display:flex;
     justify-content:center;
     gap:0;
+    flex-wrap:wrap;
   }
   .nav-btn{
     background:transparent;
     color:var(--cream-light);
-    padding:16px 48px;
+    padding:16px 32px;
     font-size:1rem;
     font-weight:700;
     letter-spacing:0.5px;
@@ -249,7 +589,6 @@
   }
   .tambah-btn:hover{ background:var(--tan); }
 
-  /* KONTROL KUANTITAS (PLUS & MINUS) */
   .qty-control{
     display:flex;
     align-items:center;
@@ -278,6 +617,89 @@
     font-weight:800;
     font-size:1.1rem;
     padding:0 12px;
+  }
+
+  /* ===== BLOG ===== */
+  .blog-wrap{ max-width:1000px; margin:0 auto; padding:50px 40px; }
+  .section-title{
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+    color:var(--brown-dark);
+    font-size:2rem;
+    text-align:center;
+    margin-bottom:10px;
+  }
+  .section-subtitle{
+    text-align:center;
+    color:var(--brown);
+    margin-bottom:40px;
+  }
+  .blog-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:24px;
+  }
+  .blog-card{
+    background:var(--cream-card);
+    border-radius:14px;
+    padding:24px;
+    box-shadow:0 6px 16px var(--shadow);
+    display:flex;
+    flex-direction:column;
+  }
+  .blog-card h3{
+    color:var(--brown-dark);
+    font-size:1.2rem;
+    margin-bottom:10px;
+    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
+  }
+  .blog-card p{
+    color:var(--brown);
+    line-height:1.6;
+    font-size:0.95rem;
+  }
+
+  /* ===== FAQ ===== */
+  .faq-wrap{ max-width:900px; margin:0 auto; padding:50px 40px; }
+  .faq-list{ display:flex; flex-direction:column; gap:16px; }
+  .faq-item{
+    background:var(--cream-card);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 12px var(--shadow);
+  }
+  .faq-question{
+    width:100%;
+    text-align:left;
+    padding:18px 24px;
+    background:transparent;
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--brown-dark);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .faq-question::after{
+    content:'+';
+    font-size:1.4rem;
+    font-weight:800;
+    color:var(--tan);
+  }
+  .faq-item.active .faq-question::after{
+    content:'−';
+  }
+  .faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease, padding .3s ease;
+    background:rgba(255,255,255,0.4);
+    color:var(--brown);
+    line-height:1.6;
+    padding:0 24px;
+  }
+  .faq-item.active .faq-answer{
+    max-height:200px;
+    padding:16px 24px 20px;
   }
 
   /* ===== ABOUT US ===== */
@@ -487,7 +909,7 @@
     .produk-grid{ grid-template-columns:1fr; }
     header{ padding:14px 20px; }
     nav{ flex-wrap:wrap; }
-    .nav-btn{ padding:14px 20px; flex:1; }
+    .nav-btn{ padding:12px 16px; flex:1 1 auto; text-align:center; }
     .about-wrap, .hero{ flex-direction:column; }
     .cta-bar{ flex-direction:column; text-align:center; }
   }
@@ -504,6 +926,8 @@
   <button class="nav-btn" data-page="about">About us</button>
   <button class="nav-btn" data-page="home">Homepage</button>
   <button class="nav-btn" data-page="produk">Produk</button>
+  <button class="nav-btn" data-page="blog">Blog</button>
+  <button class="nav-btn" data-page="faq">FAQ</button>
 </nav>
 
 <main>
@@ -536,6 +960,107 @@
   <section class="page" id="page-produk">
     <div class="produk-wrap">
       <div class="produk-grid" id="produkGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= BLOG ================= -->
+  <section class="page" id="page-blog">
+    <div class="blog-wrap">
+      <h2 class="section-title">Artikel & Seputar Tiramisu</h2>
+      <p class="section-subtitle">Pelajari cerita, tips, dan fakta menarik seputar tiramisu favoritmu.</p>
+      
+      <div class="blog-grid">
+        <div class="blog-card">
+          <h3>Mengenal Dessert Tiramisu</h3>
+          <p>Tiramisu merupakan dessert khas Italia yang memiliki perpaduan rasa kopi, mascarpone, dan tekstur lembut yang membuatnya banyak disukai.</p>
+        </div>
+
+        <div class="blog-card">
+          <h3>Tips Menikmati Tiramisu agar Lebih Nikmat</h3>
+          <p>Tiramisu dapat dinikmati dalam kondisi dingin agar tekstur dan perpaduan rasanya terasa lebih maksimal.</p>
+        </div>
+
+        <div class="blog-card">
+          <h3>Kenapa Tiramisu Cocok untuk Pecinta Kopi?</h3>
+          <p>Perpaduan rasa kopi dengan cream yang lembut membuat tiramisu menjadi pilihan menarik bagi orang yang menyukai kopi dan dessert.</p>
+        </div>
+
+        <div class="blog-card">
+          <h3>Cara Menyimpan Tiramisu</h3>
+          <p>Simpan tiramisu di dalam lemari pendingin dan hindari meninggalkannya terlalu lama pada suhu ruangan.</p>
+        </div>
+
+        <div class="blog-card">
+          <h3>Tiramisu untuk Berbagai Momen</h3>
+          <p>Tiramisu dapat menjadi pilihan dessert untuk menemani waktu santai, berkumpul bersama teman, maupun sebagai hidangan untuk acara tertentu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="page" id="page-faq">
+    <div class="faq-wrap">
+      <h2 class="section-title">❓ FAQ</h2>
+      <p class="section-subtitle">Frequently Asked Questions — Pertanyaan yang sering ditanyakan</p>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">1. Apa itu Tiramisoon?</button>
+          <div class="faq-answer">
+            <p>Tiramisoon adalah usaha yang menyediakan dessert tiramisu dengan cita rasa lembut dan perpaduan rasa kopi yang khas.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">2. Apa saja varian tiramisu yang tersedia?</button>
+          <div class="faq-answer">
+            <p>Varian yang tersedia dapat dilihat pada halaman produk/menu Tiramisoon.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">3. Apakah tiramisu harus disimpan di kulkas?</button>
+          <div class="faq-answer">
+            <p>Ya, tiramisu sebaiknya disimpan dalam kondisi dingin agar kualitas, tekstur, dan rasanya tetap terjaga.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">4. Berapa lama tiramisu dapat disimpan?</button>
+          <div class="faq-answer">
+            <p>Tiramisu sebaiknya dikonsumsi sesuai batas waktu yang dicantumkan oleh Tiramisoon dan tetap disimpan dalam lemari pendingin.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">5. Apakah bisa memesan untuk acara?</button>
+          <div class="faq-answer">
+            <p>Bisa. Pemesanan untuk acara dapat dilakukan dengan menghubungi kontak Tiramisoon untuk mengetahui jumlah minimal dan ketentuannya.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">6. Bagaimana cara melakukan pemesanan?</button>
+          <div class="faq-answer">
+            <p>Pelanggan dapat memilih produk yang diinginkan kemudian menghubungi kontak yang tersedia pada website untuk melakukan pemesanan.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">7. Apakah Tiramisoon cocok untuk pecinta kopi?</button>
+          <div class="faq-answer">
+            <p>Ya, perpaduan rasa kopi dan cream pada tiramisu membuatnya cocok sebagai pilihan dessert bagi pecinta kopi.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">8. Apakah tersedia layanan delivery?</button>
+          <div class="faq-answer">
+            <p>Layanan pengiriman dapat disesuaikan dengan area dan ketentuan pemesanan Tiramisoon.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -806,6 +1331,8 @@
     home:   document.getElementById('page-home'),
     produk: document.getElementById('page-produk'),
     about:  document.getElementById('page-about'),
+    blog:   document.getElementById('page-blog'),
+    faq:    document.getElementById('page-faq'),
   };
   const headerActionBtn = document.getElementById('headerActionBtn');
 
@@ -815,7 +1342,7 @@
 
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === pageKey));
 
-    if(pageKey === 'home'){
+    if(pageKey === 'home' || pageKey === 'blog' || pageKey === 'faq'){
       renderAuthButton();
     } else if(pageKey === 'produk'){
       updateCartBadge();
@@ -832,6 +1359,20 @@
   });
 
   document.getElementById('orderNowBtn').addEventListener('click', () => goToPage('produk'));
+
+  // ---------- FAQ ACCORDION INTERACTION ----------
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.parentElement;
+      const isActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+      
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    });
+  });
 
   // ---------- TOMBOL LOGIN / STATUS USER ----------
   function renderAuthButton(){
