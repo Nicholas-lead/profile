@@ -194,120 +194,7 @@
     margin: 12px 0 0;
   }
 
-  /* ================================
-     MASKOT KUCING TUXEDO
-     ================================ */
-
-  .tuxedo-mascot {
-    position: absolute;
-    right: -8px;
-    bottom: -8px;
-    width: 105px;
-    height: 105px;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .cat-head {
-    position: absolute;
-    width: 72px;
-    height: 65px;
-    right: 12px;
-    bottom: 14px;
-    background: #171717;
-    border-radius: 48% 48% 45% 45%;
-  }
-
-  .cat-ear-left,
-  .cat-ear-right {
-    position: absolute;
-    width: 27px;
-    height: 30px;
-    top: -12px;
-    background: #171717;
-  }
-
-  .cat-ear-left {
-    left: 3px;
-    transform: rotate(-28deg);
-    border-radius: 5px 18px 0 10px;
-  }
-
-  .cat-ear-right {
-    right: 3px;
-    transform: rotate(28deg);
-    border-radius: 18px 5px 10px 0;
-  }
-
-  .cat-face {
-    position: absolute;
-    left: 18px;
-    top: 11px;
-    width: 37px;
-    height: 48px;
-    background: white;
-    border-radius: 45%;
-  }
-
-  .cat-eye {
-    position: absolute;
-    top: 22px;
-    width: 7px;
-    height: 7px;
-    background: #111827;
-    border-radius: 50%;
-  }
-
-  .cat-eye.left {
-    left: 19px;
-  }
-
-  .cat-eye.right {
-    right: 19px;
-  }
-
-  .cat-nose {
-    position: absolute;
-    left: 32px;
-    top: 31px;
-    width: 8px;
-    height: 6px;
-    background: #111827;
-    border-radius: 50%;
-  }
-
-  .cat-body {
-    position: absolute;
-    right: 4px;
-    bottom: -18px;
-    width: 80px;
-    height: 54px;
-    background: #171717;
-    border-radius: 50px 50px 15px 15px;
-  }
-
-  .cat-shirt {
-    position: absolute;
-    left: 27px;
-    top: 5px;
-    width: 25px;
-    height: 45px;
-    background: white;
-    clip-path: polygon(50% 0, 100% 25%, 78% 100%, 22% 100%, 0 25%);
-  }
-
-  .cat-bowtie {
-    position: absolute;
-    left: 33px;
-    top: 8px;
-    width: 14px;
-    height: 8px;
-    background: #111827;
-    clip-path: polygon(0 0, 45% 20%, 50% 0, 55% 20%, 100% 0, 85% 100%, 50% 70%, 15% 100%);
-  }
-
   /* Badge checkout */
-
   .cart-badge {
     display: inline-flex;
     align-items: center;
@@ -321,22 +208,6 @@
     color: white;
     font-size: 10px;
     font-weight: 800;
-  }
-
-  @media (max-width: 480px) {
-    .checkout-box {
-      padding: 21px;
-      border-radius: 20px;
-    }
-
-    .pickup-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .tuxedo-mascot {
-      transform: scale(.8);
-      transform-origin: bottom right;
-    }
   }
 </style>
 <head>
@@ -399,17 +270,6 @@
     position:relative;
   }
   .header-action-btn:hover{ transform:translateY(-1px); }
-  .cart-badge{
-    position:absolute;
-    top:-8px; right:-8px;
-    background:var(--tan);
-    color:var(--white);
-    font-size:0.7rem;
-    font-weight:800;
-    width:20px; height:20px;
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-  }
 
   /* ===== NAV ===== */
   nav{
@@ -619,8 +479,79 @@
     padding:0 12px;
   }
 
-  /* ===== BLOG ===== */
-  .blog-wrap{ max-width:1000px; margin:0 auto; padding:50px 40px; }
+  .unavailable-badge {
+    background: #e11d48;
+    color: white;
+    font-weight: 800;
+    padding: 12px 0;
+    margin: 0 18px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
+
+  /* ===== ADMIN PANEL STYLES ===== */
+  .admin-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .admin-section {
+    background: var(--cream-card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+  .admin-section h3 {
+    margin-bottom: 16px;
+    color: var(--brown-dark);
+    font-family: 'Comic Sans MS', sans-serif;
+  }
+  .admin-product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream-light);
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .toggle-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .toggle-btn.active {
+    background: #16a34a;
+    color: white;
+  }
+  .toggle-btn.inactive {
+    background: #dc2626;
+    color: white;
+  }
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--cream-light);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .orders-table th, .orders-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd0b8;
+    font-size: 0.9rem;
+  }
+  .orders-table th {
+    background: var(--brown-dark);
+    color: var(--cream-light);
+  }
+
+  /* ===== BLOG & FAQ & ABOUT US ===== */
+  .blog-wrap, .faq-wrap, .about-wrap { max-width:1000px; margin:0 auto; padding:50px 40px; }
   .section-title{
     font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
     color:var(--brown-dark);
@@ -628,282 +559,62 @@
     text-align:center;
     margin-bottom:10px;
   }
-  .section-subtitle{
-    text-align:center;
-    color:var(--brown);
-    margin-bottom:40px;
-  }
-  .blog-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-    gap:24px;
-  }
-  .blog-card{
-    background:var(--cream-card);
-    border-radius:14px;
-    padding:24px;
-    box-shadow:0 6px 16px var(--shadow);
-    display:flex;
-    flex-direction:column;
-  }
-  .blog-card h3{
-    color:var(--brown-dark);
-    font-size:1.2rem;
-    margin-bottom:10px;
-    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
-  }
-  .blog-card p{
-    color:var(--brown);
-    line-height:1.6;
-    font-size:0.95rem;
-  }
+  .section-subtitle{ text-align:center; color:var(--brown); margin-bottom:40px; }
+  .blog-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
+  .blog-card{ background:var(--cream-card); border-radius:14px; padding:24px; box-shadow:0 6px 16px var(--shadow); }
+  .blog-card h3{ color:var(--brown-dark); font-size:1.2rem; margin-bottom:10px; font-family:'Comic Sans MS',sans-serif; }
+  .blog-card p{ color:var(--brown); line-height:1.6; font-size:0.95rem; }
 
-  /* ===== FAQ ===== */
-  .faq-wrap{ max-width:900px; margin:0 auto; padding:50px 40px; }
   .faq-list{ display:flex; flex-direction:column; gap:16px; }
-  .faq-item{
-    background:var(--cream-card);
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 4px 12px var(--shadow);
-  }
+  .faq-item{ background:var(--cream-card); border-radius:12px; overflow:hidden; box-shadow:0 4px 12px var(--shadow); }
   .faq-question{
-    width:100%;
-    text-align:left;
-    padding:18px 24px;
-    background:transparent;
-    font-weight:700;
-    font-size:1.05rem;
-    color:var(--brown-dark);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    width:100%; text-align:left; padding:18px 24px; background:transparent; font-weight:700;
+    font-size:1.05rem; color:var(--brown-dark); display:flex; justify-content:space-between; align-items:center;
   }
-  .faq-question::after{
-    content:'+';
-    font-size:1.4rem;
-    font-weight:800;
-    color:var(--tan);
-  }
-  .faq-item.active .faq-question::after{
-    content:'−';
-  }
-  .faq-answer{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .3s ease, padding .3s ease;
-    background:rgba(255,255,255,0.4);
-    color:var(--brown);
-    line-height:1.6;
-    padding:0 24px;
-  }
-  .faq-item.active .faq-answer{
-    max-height:200px;
-    padding:16px 24px 20px;
-  }
+  .faq-question::after{ content:'+'; font-size:1.4rem; font-weight:800; color:var(--tan); }
+  .faq-item.active .faq-question::after{ content:'−'; }
+  .faq-answer{ max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; background:rgba(255,255,255,0.4); color:var(--brown); line-height:1.6; padding:0 24px; }
+  .faq-item.active .faq-answer{ max-height:200px; padding:16px 24px 20px; }
 
-  /* ===== ABOUT US ===== */
-  .about-wrap{
-    max-width:1100px;
-    margin:0 auto;
-    padding:50px 40px;
-    display:flex;
-    gap:50px;
-    flex-wrap:wrap;
-  }
+  .about-wrap{ display:flex; gap:50px; flex-wrap:wrap; }
   .about-main{ flex:2 1 420px; }
-  .about-main h2{
-    font-family:'Comic Sans MS','Trebuchet MS',sans-serif;
-    color:var(--brown-dark);
-    font-size:1.4rem;
-    margin-bottom:8px;
-    margin-top:28px;
-  }
+  .about-main h2{ font-family:'Comic Sans MS',sans-serif; color:var(--brown-dark); font-size:1.4rem; margin-bottom:8px; margin-top:28px; }
   .about-main h2:first-child{ margin-top:0; }
-  .about-main p{
-    color:var(--brown);
-    line-height:1.7;
-    max-width:520px;
-  }
-  .about-main ul{
-    color:var(--brown);
-    line-height:1.9;
-    margin-top:8px;
-    padding-left:22px;
-  }
-  .contact-card{
-    flex:1 1 260px;
-    background:var(--brown-dark);
-    color:var(--cream-light);
-    border-radius:16px;
-    padding:26px;
-    height:fit-content;
-  }
-  .contact-card .contact-title{
-    background:var(--tan);
-    color:var(--white);
-    text-align:center;
-    padding:10px;
-    border-radius:20px;
-    font-weight:800;
-    margin-bottom:20px;
-  }
-  .contact-item{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,0.12);
-    font-size:0.95rem;
-  }
+  .about-main p{ color:var(--brown); line-height:1.7; max-width:520px; }
+  .about-main ul{ color:var(--brown); line-height:1.9; margin-top:8px; padding-left:22px; }
+  .contact-card{ flex:1 1 260px; background:var(--brown-dark); color:var(--cream-light); border-radius:16px; padding:26px; height:fit-content; }
+  .contact-card .contact-title{ background:var(--tan); color:var(--white); text-align:center; padding:10px; border-radius:20px; font-weight:800; margin-bottom:20px; }
+  .contact-item{ display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.12); font-size:0.95rem; }
   .contact-item:last-child{ border-bottom:none; }
-  .contact-icon{
-    width:26px; text-align:center; font-size:1.1rem;
-  }
-  .contact-item a {
-    color: var(--cream-light);
-    transition: opacity .15s ease;
-  }
-  .contact-item a:hover {
-    opacity: 0.8;
-    text-decoration: underline;
-  }
+  .contact-icon{ width:26px; text-align:center; font-size:1.1rem; }
+  .contact-item a { color: var(--cream-light); }
 
-  /* ===== CHECKOUT MODAL ===== */
-  .modal-overlay{
-    display:none;
-    position:fixed; inset:0;
-    background:rgba(0,0,0,0.45);
-    align-items:center; justify-content:center;
-    z-index:100;
-  }
+  /* ===== MODAL STYLES ===== */
+  .modal-overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:100; }
   .modal-overlay.open{ display:flex; }
-  .modal-box{
-    background:var(--white);
-    border-radius:14px;
-    padding:28px;
-    width:90%;
-    max-width:420px;
-    max-height:85vh;
-    overflow-y:auto;
-  }
+  .modal-box{ background:var(--white); border-radius:14px; padding:28px; width:90%; max-width:420px; max-height:85vh; overflow-y:auto; }
   .modal-box h3{ color:var(--brown-dark); margin-bottom:16px; }
-  .cart-row{
-    display:flex; justify-content:space-between;
-    padding:8px 0; border-bottom:1px solid #eee;
-    color:var(--brown-dark); font-size:0.95rem;
-  }
-  .cart-total{
-    display:flex; justify-content:space-between;
-    font-weight:800; margin-top:14px; font-size:1.1rem;
-    color:var(--brown-dark);
-  }
-  
-  /* Opsi Pengambilan */
-  .location-section {
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 2px dashed var(--cream-card);
-  }
-  .location-section label {
-    display: block;
-    font-weight: 700;
-    color: var(--brown-dark);
-    margin-bottom: 6px;
-    font-size: 0.95rem;
-  }
-  .location-select, .customer-name-input {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd0b8;
-    background: var(--cream-light);
-    color: var(--brown-dark);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-    outline: none;
-  }
-  .location-select:focus, .customer-name-input:focus {
-    border-color: var(--tan);
-  }
-
-  .modal-action-btn{
-    margin-top:10px; width:100%;
-    background:var(--tan); color:var(--white);
-    padding:12px; border-radius:8px; font-weight:800;
-    font-size: 1rem;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background .2s ease;
-  }
-  .modal-action-btn:hover{ background: #5a8a4a; }
-  
-  .modal-close-btn{
-    margin-top:8px; width:100%;
-    background:transparent; color:var(--brown);
-    padding:8px; border-radius:8px; font-weight:700;
-    border: 1px solid #ddd;
-  }
+  .cart-row{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; color:var(--brown-dark); font-size:0.95rem; }
+  .cart-total{ display:flex; justify-content:space-between; font-weight:800; margin-top:14px; font-size:1.1rem; color:var(--brown-dark); }
+  .location-section { margin-top: 18px; padding-top: 14px; border-top: 2px dashed var(--cream-card); }
+  .location-section label { display: block; font-weight: 700; color: var(--brown-dark); margin-bottom: 6px; font-size: 0.95rem; }
+  .location-select, .customer-name-input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #ddd0b8; background: var(--cream-light); color: var(--brown-dark); font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; outline: none; }
+  .modal-action-btn{ margin-top:10px; width:100%; background:var(--tan); color:var(--white); padding:12px; border-radius:8px; font-weight:800; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .modal-close-btn{ margin-top:8px; width:100%; background:transparent; color:var(--brown); padding:8px; border-radius:8px; font-weight:700; border: 1px solid #ddd; }
   .empty-cart{ color:var(--brown); text-align:center; padding:20px 0; }
 
-  /* ===== AUTH MODAL ===== */
-  .auth-tabs{
-    display:flex;
-    border-radius:10px;
-    overflow:hidden;
-    margin-bottom:20px;
-    border:1px solid var(--cream-card);
-  }
-  .auth-tab{
-    flex:1;
-    padding:10px;
-    background:var(--cream-light);
-    color:var(--brown);
-    font-weight:700;
-    transition:background .2s ease, color .2s ease;
-  }
-  .auth-tab.active{
-    background:var(--tan);
-    color:var(--white);
-  }
+  .auth-tabs{ display:flex; border-radius:10px; overflow:hidden; margin-bottom:20px; border:1px solid var(--cream-card); }
+  .auth-tab{ flex:1; padding:10px; background:var(--cream-light); color:var(--brown); font-weight:700; }
+  .auth-tab.active{ background:var(--tan); color:var(--white); }
   .auth-form{ display:none; flex-direction:column; gap:12px; }
   .auth-form.active{ display:flex; }
-  .auth-form input{
-    padding:11px 14px;
-    border-radius:8px;
-    border:1px solid #ddd0b8;
-    font-size:0.95rem;
-    background:var(--cream-light);
-    color:var(--brown-dark);
-  }
-  .auth-form input:focus{ outline:2px solid var(--tan); }
-  .auth-submit-btn{
-    background:var(--brown-dark);
-    color:var(--cream-light);
-    padding:12px;
-    border-radius:8px;
-    font-weight:700;
-    margin-top:4px;
-    transition:background .2s ease;
-  }
-  .auth-submit-btn:hover{ background:var(--tan); }
-  .auth-submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
-  .auth-msg{
-    font-size:0.85rem;
-    min-height:18px;
-    font-weight:700;
-  }
+  .auth-form input{ padding:11px 14px; border-radius:8px; border:1px solid #ddd0b8; font-size:0.95rem; background:var(--cream-light); color:var(--brown-dark); }
+  .auth-submit-btn{ background:var(--brown-dark); color:var(--cream-light); padding:12px; border-radius:8px; font-weight:700; margin-top:4px; }
+  .auth-msg{ font-size:0.85rem; min-height:18px; font-weight:700; }
   .auth-msg.error{ color:#b3402a; }
   .auth-msg.success{ color:#3b7a36; }
 
-  footer{
-    background:var(--brown-dark);
-    color:var(--cream-light);
-    text-align:center;
-    padding:18px;
-    font-size:0.85rem;
-    opacity:0.85;
-  }
+  footer{ background:var(--brown-dark); color:var(--cream-light); text-align:center; padding:18px; font-size:0.85rem; opacity:0.85; }
 
   @media (max-width:800px){
     .produk-grid{ grid-template-columns:1fr; }
@@ -922,12 +633,13 @@
   <button class="header-action-btn" id="headerActionBtn"></button>
 </header>
 
-<nav>
+<nav id="mainNav">
   <button class="nav-btn" data-page="about">About us</button>
   <button class="nav-btn" data-page="home">Homepage</button>
   <button class="nav-btn" data-page="produk">Produk</button>
   <button class="nav-btn" data-page="blog">Blog</button>
   <button class="nav-btn" data-page="faq">FAQ</button>
+  <button class="nav-btn" data-page="admin" id="adminNavBtn" style="display:none;">Admin Panel</button>
 </nav>
 
 <main>
@@ -963,6 +675,43 @@
     </div>
   </section>
 
+  <!-- ================= ADMIN PANEL ================= -->
+  <section class="page" id="page-admin">
+    <div class="admin-wrap">
+      <h2 class="section-title">⚙️ Admin Panel Tiramisoon</h2>
+      <p class="section-subtitle">Kelola ketersediaan produk dan lihat pesanan masuk</p>
+
+      <!-- Status Produk -->
+      <div class="admin-section">
+        <h3>📦 Kelola Status Produk</h3>
+        <div id="adminProductControls"></div>
+      </div>
+
+      <!-- Riwayat Pesanan -->
+      <div class="admin-section">
+        <h3>🛒 Daftar Pesanan Terbeli</h3>
+        <div style="overflow-x:auto;">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Nama</th>
+                <th>Lokasi Pickup</th>
+                <th>Jam</th>
+                <th>Pesanan</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr>
+                <td colspan="5" style="text-align:center;">Belum ada pesanan masuk.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= BLOG ================= -->
   <section class="page" id="page-blog">
     <div class="blog-wrap">
@@ -974,22 +723,18 @@
           <h3>Mengenal Dessert Tiramisu</h3>
           <p>Tiramisu merupakan dessert khas Italia yang memiliki perpaduan rasa kopi, mascarpone, dan tekstur lembut yang membuatnya banyak disukai.</p>
         </div>
-
         <div class="blog-card">
           <h3>Tips Menikmati Tiramisu agar Lebih Nikmat</h3>
           <p>Tiramisu dapat dinikmati dalam kondisi dingin agar tekstur dan perpaduan rasanya terasa lebih maksimal.</p>
         </div>
-
         <div class="blog-card">
           <h3>Kenapa Tiramisu Cocok untuk Pecinta Kopi?</h3>
           <p>Perpaduan rasa kopi dengan cream yang lembut membuat tiramisu menjadi pilihan menarik bagi orang yang menyukai kopi dan dessert.</p>
         </div>
-
         <div class="blog-card">
           <h3>Cara Menyimpan Tiramisu</h3>
           <p>Simpan tiramisu di dalam lemari pendingin dan hindari meninggalkannya terlalu lama pada suhu ruangan.</p>
         </div>
-
         <div class="blog-card">
           <h3>Tiramisu untuk Berbagai Momen</h3>
           <p>Tiramisu dapat menjadi pilihan dessert untuk menemani waktu santai, berkumpul bersama teman, maupun sebagai hidangan untuk acara tertentu.</p>
@@ -1011,49 +756,42 @@
             <p>Tiramisoon adalah usaha yang menyediakan dessert tiramisu dengan cita rasa lembut dan perpaduan rasa kopi yang khas.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">2. Apa saja varian tiramisu yang tersedia?</button>
           <div class="faq-answer">
             <p>Varian yang tersedia dapat dilihat pada halaman produk/menu Tiramisoon.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">3. Apakah tiramisu harus disimpan di kulkas?</button>
           <div class="faq-answer">
             <p>Ya, tiramisu sebaiknya disimpan dalam kondisi dingin agar kualitas, tekstur, dan rasanya tetap terjaga.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">4. Berapa lama tiramisu dapat disimpan?</button>
           <div class="faq-answer">
             <p>Tiramisu sebaiknya dikonsumsi sesuai batas waktu yang dicantumkan oleh Tiramisoon dan tetap disimpan dalam lemari pendingin.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">5. Apakah bisa memesan untuk acara?</button>
           <div class="faq-answer">
             <p>Bisa. Pemesanan untuk acara dapat dilakukan dengan menghubungi kontak Tiramisoon untuk mengetahui jumlah minimal dan ketentuannya.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">6. Bagaimana cara melakukan pemesanan?</button>
           <div class="faq-answer">
             <p>Pelanggan dapat memilih produk yang diinginkan kemudian menghubungi kontak yang tersedia pada website untuk melakukan pemesanan.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">7. Apakah Tiramisoon cocok untuk pecinta kopi?</button>
           <div class="faq-answer">
             <p>Ya, perpaduan rasa kopi dan cream pada tiramisu membuatnya cocok sebagai pilihan dessert bagi pecinta kopi.</p>
           </div>
         </div>
-
         <div class="faq-item">
           <button class="faq-question">8. Apakah tersedia layanan delivery?</button>
           <div class="faq-answer">
@@ -1149,7 +887,7 @@
 
     <!-- FORM LOGIN -->
     <form class="auth-form active" id="loginForm">
-      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="text" id="loginEmail" placeholder="Email / ID Admin" required>
       <input type="password" id="loginPassword" placeholder="Password" required>
       <div class="auth-msg error" id="loginError"></div>
       <button type="submit" class="auth-submit-btn" id="loginSubmitBtn">Login</button>
@@ -1169,8 +907,22 @@
 </div>
 
 <script>
-  // ---------- USER STATE ----------
+  // ---------- USER STATE & ADMIN STATUS ----------
   let currentUser = JSON.parse(localStorage.getItem('tiramisoon_active_user')) || null;
+  let isAdmin = localStorage.getItem('tiramisoon_is_admin') === 'true';
+
+  // ---------- DATA PRODUK (dengan status ketersediaan) ----------
+  const defaultProducts = [
+    { id:1, name:'Classic Original', desc:'Tiramisu klasik dengan krim gurih lembut', price:20000, img:'image_0680eb.jpg', available: true },
+    { id:2, name:'Matcharisu',       desc:'Rasa khas matcha jepang asli', price:22000, img:'image_06dabf.jpg', available: true },
+    { id:3, name:'Biscoff Crunch',   desc:'Sensasi manis biskuit biscoff renyah', price:23000, img:'image_06d761.jpg', available: true },
+  ];
+
+  let products = JSON.parse(localStorage.getItem('tiramisoon_products')) || defaultProducts;
+
+  function saveProducts() {
+    localStorage.setItem('tiramisoon_products', JSON.stringify(products));
+  }
 
   // ---------- TAB SWITCH (Login <-> Daftar) ----------
   function switchTab(tabKey) {
@@ -1239,46 +991,73 @@
     }, 1500);
   });
 
-  // ---------- PROSES LOGIN ----------
+  // ---------- PROSES LOGIN (Termasuk Login Admin) ----------
   document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
     const errorEl = document.getElementById('loginError');
 
-    let users = JSON.parse(localStorage.getItem('tiramisoon_users')) || [];
-    const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
-
-    if (matchedUser) {
-      currentUser = matchedUser;
+    // CEK AKUN ADMIN
+    if (email === 'tiramisoon' && password === 'rahasialah') {
+      isAdmin = true;
+      localStorage.setItem('tiramisoon_is_admin', 'true');
+      currentUser = { name: 'Admin', email: 'admin@tiramisoon.com' };
       localStorage.setItem('tiramisoon_active_user', JSON.stringify(currentUser));
       
       authModal.classList.remove('open');
       document.getElementById('loginForm').reset();
       errorEl.textContent = '';
       
+      checkAdminStatus();
+      renderAuthButton();
+      goToPage('admin');
+      return;
+    }
+
+    // CEK AKUN REGULER
+    let users = JSON.parse(localStorage.getItem('tiramisoon_users')) || [];
+    const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+
+    if (matchedUser) {
+      currentUser = matchedUser;
+      isAdmin = false;
+      localStorage.setItem('tiramisoon_is_admin', 'false');
+      localStorage.setItem('tiramisoon_active_user', JSON.stringify(currentUser));
+      
+      authModal.classList.remove('open');
+      document.getElementById('loginForm').reset();
+      errorEl.textContent = '';
+      
+      checkAdminStatus();
       renderAuthButton();
     } else {
-      errorEl.textContent = 'Email atau password salah.';
+      errorEl.textContent = 'ID/Email atau password salah.';
     }
   });
 
   // Logout
   window.logoutUser = () => {
     currentUser = null;
+    isAdmin = false;
     localStorage.removeItem('tiramisoon_active_user');
+    localStorage.removeItem('tiramisoon_is_admin');
+    checkAdminStatus();
     renderAuthButton();
+    goToPage('home');
   };
 
-  // ---------- DATA PRODUK ----------
-  const products = [
-    { id:1, name:'Classic Original', desc:'Tiramisu klasik dengan krim gurih lembut', price:20000, img:'image_0680eb.jpg' },
-    { id:2, name:'Matcharisu',       desc:'Rasa khas matcha jepang asli', price:22000, img:'image_06dabf.jpg' },
-    { id:3, name:'Biscoff Crunch',   desc:'Sensasi manis biskuit biscoff renyah', price:23000, img:'image_06d761.jpg' },
-  ];
+  function checkAdminStatus() {
+    const adminBtn = document.getElementById('adminNavBtn');
+    if (isAdmin) {
+      adminBtn.style.display = 'inline-block';
+    } else {
+      adminBtn.style.display = 'none';
+    }
+  }
+  checkAdminStatus();
 
   let cart = {};
-
   const grid = document.getElementById('produkGrid');
 
   function updateQuantity(id, change) {
@@ -1300,7 +1079,10 @@
       const qty = cart[p.id] || 0;
       
       let actionControl = '';
-      if (qty === 0) {
+      
+      if (!p.available) {
+        actionControl = `<div class="unavailable-badge">produk tidak tersedia</div>`;
+      } else if (qty === 0) {
         actionControl = `<button class="tambah-btn" onclick="updateQuantity(${p.id}, 1)">🛒 Tambah</button>`;
       } else {
         actionControl = `
@@ -1325,6 +1107,53 @@
   }
   renderProducts();
 
+  // ---------- ADMIN PANEL FUNCTIONS ----------
+  function toggleProductStatus(id) {
+    const product = products.find(p => p.id === id);
+    if (product) {
+      product.available = !product.available;
+      if (!product.available) {
+        delete cart[id]; // Hapus dari keranjang jika dinonaktifkan
+      }
+      saveProducts();
+      renderAdminProducts();
+      renderProducts();
+      updateCartBadge();
+    }
+  }
+
+  function renderAdminProducts() {
+    const container = document.getElementById('adminProductControls');
+    container.innerHTML = products.map(p => `
+      <div class="admin-product-item">
+        <span><strong>${p.name}</strong></span>
+        <button class="toggle-btn ${p.available ? 'active' : 'inactive'}" onclick="toggleProductStatus(${p.id})">
+          ${p.available ? '✅ Aktif' : '❌ Nonaktif'}
+        </button>
+      </div>
+    `).join('');
+  }
+
+  function renderAdminOrders() {
+    const tbody = document.getElementById('ordersTableBody');
+    const orders = JSON.parse(localStorage.getItem('tiramisoon_orders')) || [];
+    
+    if (orders.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Belum ada pesanan masuk.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = orders.map(o => `
+      <tr>
+        <td>${o.date}</td>
+        <td><strong>${o.name}</strong></td>
+        <td>${o.location}</td>
+        <td>${o.time}</td>
+        <td>${o.products}</td>
+      </tr>
+    `).join('');
+  }
+
   // ---------- NAV / PAGE SWITCH ----------
   const navBtns = document.querySelectorAll('.nav-btn');
   const pages = {
@@ -1333,16 +1162,21 @@
     about:  document.getElementById('page-about'),
     blog:   document.getElementById('page-blog'),
     faq:    document.getElementById('page-faq'),
+    admin:  document.getElementById('page-admin'),
   };
   const headerActionBtn = document.getElementById('headerActionBtn');
 
   function goToPage(pageKey){
     Object.values(pages).forEach(p => p.classList.remove('active'));
-    pages[pageKey].classList.add('active');
+    if(pages[pageKey]) pages[pageKey].classList.add('active');
 
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === pageKey));
 
-    if(pageKey === 'home' || pageKey === 'blog' || pageKey === 'faq'){
+    if (pageKey === 'admin') {
+      renderAdminProducts();
+      renderAdminOrders();
+      renderAuthButton();
+    } else if(pageKey === 'home' || pageKey === 'blog' || pageKey === 'faq'){
       renderAuthButton();
     } else if(pageKey === 'produk'){
       updateCartBadge();
@@ -1425,7 +1259,6 @@
       cartTotalValue.textContent = 'Rp ' + total.toLocaleString('id-ID');
       checkoutOptions.style.display = 'block';
 
-      // Otomatis isi nama jika user sudah login
       if (currentUser && currentUser.name) {
         custNameInput.value = currentUser.name;
       }
@@ -1433,7 +1266,7 @@
     modal.classList.add('open');
   }
 
-  // Buka WhatsApp dengan format ter-update
+  // Buka WhatsApp & Simpan Pesanan ke Admin Panel
   document.getElementById('sendWaBtn').addEventListener('click', () => {
     const name = custNameInput.value.trim();
     if(!name) {
@@ -1445,7 +1278,6 @@
     const location = document.getElementById('pickupLocation').value;
     const time = document.getElementById('pickupTime').value;
     
-    // Susun string daftar produk
     const productList = Object.keys(cart)
       .filter(id => cart[id] > 0)
       .map(id => {
@@ -1453,9 +1285,20 @@
         return `${p.name} (${cart[id]}x)`;
       }).join(', ');
 
-    // Format Pesan: Nama | Tempat | Waktu | Produk
+    // Simpan ke LocalStorage agar Admin dapat melihat pesanan
+    const newOrder = {
+      date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }),
+      name,
+      location,
+      time,
+      products: productList
+    };
+
+    let orders = JSON.parse(localStorage.getItem('tiramisoon_orders')) || [];
+    orders.unshift(newOrder);
+    localStorage.setItem('tiramisoon_orders', JSON.stringify(orders));
+
     const message = `${name} | ${location} | Jam ${time} | ${productList}`;
-    
     const phoneNumber = "6281216595852";
     const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     
